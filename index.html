@@ -52,22 +52,24 @@
       <option value="203.2">8 inch (203.2 mm)</option>
       <option value="152.4">6 inch (152.4 mm)</option>
     </select>
-    <label for="u">Enter U:</label>
-    <input type="number" id="u" step="any">
+    <label for="u">Enter U (Outer to Outer):</label>
+    <input type="number" id="u" step="any" placeholder="U (mm)" onfocus="showHelp('u')" onblur="clearHelp()">
 
-    <label for="l">Enter L:</label>
-    <input type="number" id="l" step="any">
+    <label for="l">Enter L (Length):</label>
+    <input type="number" id="l" step="any" placeholder="L (mm)" onfocus="showHelp('l')" onblur="clearHelp()">
 
-    <label for="b">Enter b:</label>
-    <input type="number" id="b" step="any">
+    <label for="b">Enter b (No of Capsules):</label>
+    <input type="number" id="b" step="any" placeholder="b (unitless)" onfocus="showHelp('b')" onblur="clearHelp()">
 
     <button onclick="calculate()">Calculate</button>
 
     <div class="result" id="result"></div>
+    <div id="help" style="margin-top:0.5rem;color:#555;font-size:0.9rem;"></div>
   </div>
 
   <script>
     function calculate() {
+      clearHelp();
       const base = parseFloat(document.getElementById("size").value);
       const u = parseFloat(document.getElementById("u").value);
       const l = parseFloat(document.getElementById("l").value);
@@ -89,6 +91,15 @@
 
       document.getElementById("result").innerHTML =
         `A = ${a.toFixed(2)}<br>B = ${bResult.toFixed(2)}`;
+    }
+      function showHelp(field) {
+      const help = document.getElementById('help');
+      if (field === 'u') help.innerText = 'U: Outer-to-Outer measurement (in mm).';
+      if (field === 'l') help.innerText = 'L: Total length (in mm).';
+      if (field === 'b') help.innerText = 'b: Number of capsules (must not be 1).';
+    }
+    function clearHelp() {
+      document.getElementById('help').innerText = '';
     }
   </script>
 </body>
