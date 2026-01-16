@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculate A and B (6 inch / 8 inch)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 400px;
+      background: #fff;
+      padding: 2rem;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Calculate A and B</h2>
+    <label for="size">Select Base Size:</label>
+    <select id="size" style="width:100%;padding:0.5rem;margin:0.5rem 0;border-radius:5px;">
+      <option value="203.2">8 inch (203.2 mm)</option>
+      <option value="152.4">6 inch (152.4 mm)</option>
+    </select>
+    <label for="u">Enter U:</label>
+    <input type="number" id="u" step="any">
+
+    <label for="l">Enter L:</label>
+    <input type="number" id="l" step="any">
+
+    <label for="b">Enter b:</label>
+    <input type="number" id="b" step="any">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const base = parseFloat(document.getElementById("size").value);
+      const u = parseFloat(document.getElementById("u").value);
+      const l = parseFloat(document.getElementById("l").value);
+      const b = parseFloat(document.getElementById("b").value);
+
+      if (isNaN(u) || isNaN(l) || isNaN(b) || b === 1) {
+        document.getElementById("result").innerText = "Please enter valid numbers (b must not be 1).";
+        return;
+      }
+
+      const q = base - u;
+      const x = q / 2;
+      const w = l / 2;
+      const y = w + 1.2;
+      const a = x + y;
+
+      const e = u - (2 * y);
+      const bResult = e / (b - 1);
+
+      document.getElementById("result").innerHTML =
+        `A = ${a.toFixed(2)}<br>B = ${bResult.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
